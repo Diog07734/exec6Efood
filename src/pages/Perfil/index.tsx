@@ -10,6 +10,12 @@ const Perfil = () => {
   const [restaurante, setRestaurante] = useState<Restaurants | null>(null)
   const { id } = useParams()
 
+  // Estado do carrinho
+  const [qtdCarrinho, setQtdCarrinho] = useState(0)
+
+  // Função para adicionar produto
+  const adicionarProduto = () => setQtdCarrinho((qtd) => qtd + 1)
+
   useEffect(() => {
     fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
       .then((resposta) => resposta.json())
@@ -34,9 +40,10 @@ const Perfil = () => {
           tipo={restaurante.tipo!}
           titulo={restaurante.titulo!}
           capa={restaurante.capa!}
+          qtdCarrinho={qtdCarrinho}
         />
       )}
-      <FoodList foods={restaurante?.cardapio ?? []} />
+      <FoodList foods={restaurante?.cardapio ?? []} adicionarProduto={adicionarProduto} />
       <Footer />
     </>
   )

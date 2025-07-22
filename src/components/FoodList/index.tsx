@@ -20,9 +20,10 @@ import { formataPreco } from '../../utils/formatters'
 
 type Props = {
   foods: CardapioItem[]
+  adicionarProduto: () => void
 }
 
-const FoodList = ({ foods }: Props) => {
+const FoodList = ({ foods, adicionarProduto }: Props) => {
   const [pratoSelecionado, setPratoSelecionado] = useState<CardapioItem | null>(
     null
   )
@@ -60,7 +61,11 @@ const FoodList = ({ foods }: Props) => {
                 {pratoSelecionado.descricao}
                 <span>{pratoSelecionado.porcao}</span>
               </Description>
-              <ModalButton>
+              <ModalButton
+                onClick={() => {
+                  adicionarProduto()
+                }}
+              >
                 Adicionar ao carrinho {formataPreco(pratoSelecionado.preco)}
               </ModalButton>
             </div>
